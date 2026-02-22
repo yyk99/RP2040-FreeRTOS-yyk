@@ -106,28 +106,6 @@ void led_task_gpio(void* unused_arg) {
 }
 
 /**
- * @brief an empty task
- */
-void task_fake(void* unused_arg) {
-
-    // This variable will take a copy of the value
-    // added to the FreeRTOS xQueue
-    uint8_t passed_value_buffer = 0;
-
-    while (true) {
-        // Check for an item in the FreeRTOS xQueue
-        if (xQueueReceive(queue, &passed_value_buffer, portMAX_DELAY) == pdPASS) {
-            // Received a value so flash the GPIO LED accordingly
-            // (NOT the sent value)
-            if (passed_value_buffer)
-                log_debug("GPIO LED FLASH");
-            log_debug("... keep going");
-        }
-    }
-}
-
-
-/**
  * @brief Generate and print a debug message from a supplied string.
  *
  * @param msg: The base message to which `[DEBUG]` will be prefixed.
@@ -159,11 +137,12 @@ void log_device_info(void) {
 int main() {
 
     // Enable STDIO
-#ifdef DEBUG
     stdio_usb_init();
     sleep_ms(2000);
+    // Init led & pico_w stuff
     pico_led_init();
 
+#ifdef DEBUG
     for (int i = 0 ; i < 10 ; ++i) {
         // Pause to allow the USB path to initialize
         sleep_ms(2000);
@@ -183,21 +162,14 @@ int main() {
                                          NULL,
                                          1,
                                          &pico_task_handle);
-#if 0
+
     BaseType_t gpio_status = xTaskCreate(led_task_gpio,
                                          "GPIO_LED_TASK",
                                          128,
                                          NULL,
                                          1,
                                          &gpio_task_handle);
-#else
-    BaseType_t gpio_status = xTaskCreate(task_fake,
-                                         "FAKE_TASK",
-                                         128,
-                                         NULL,
-                                         1,
-                                         &gpio_task_handle);
-#endif
+
     // Set up the event queue
     queue = xQueueCreate(4, sizeof(uint8_t));
 
