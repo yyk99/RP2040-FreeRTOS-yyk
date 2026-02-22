@@ -61,10 +61,6 @@ void led_task_pico(void* unused_arg) {
     // Store the Pico LED state
     uint8_t pico_led_state = 0;
 
-    // Configure the Pico's on-board LED
-
-    pico_led_init();
-    
     while (true) {
         // Turn Pico LED on an add the LED state
         // to the FreeRTOS xQUEUE
@@ -109,6 +105,27 @@ void led_task_gpio(void* unused_arg) {
     }
 }
 
+/**
+ * @brief an empty task
+ */
+void task_fake(void* unused_arg) {
+
+    // This variable will take a copy of the value
+    // added to the FreeRTOS xQueue
+    uint8_t passed_value_buffer = 0;
+
+    while (true) {
+        // Check for an item in the FreeRTOS xQueue
+        if (xQueueReceive(queue, &passed_value_buffer, portMAX_DELAY) == pdPASS) {
+            // Received a value so flash the GPIO LED accordingly
+            // (NOT the sent value)
+            if (passed_value_buffer)
+                log_debug("GPIO LED FLASH");
+            log_debug("... keep going");
+        }
+    }
+}
+
 
 /**
  * @brief Generate and print a debug message from a supplied string.
@@ -144,11 +161,17 @@ int main() {
     // Enable STDIO
 #ifdef DEBUG
     stdio_usb_init();
-    // Pause to allow the USB path to initialize
     sleep_ms(2000);
+    pico_led_init();
 
-    // Log app info
-    log_device_info();
+    for (int i = 0 ; i < 10 ; ++i) {
+        // Pause to allow the USB path to initialize
+        sleep_ms(2000);
+        // toggle the LED
+        pico_set_led(i&1);
+        // Log app info
+        log_device_info();
+    }
 #endif
 
     // Set up two tasks
@@ -160,13 +183,21 @@ int main() {
                                          NULL,
                                          1,
                                          &pico_task_handle);
+#if 0
     BaseType_t gpio_status = xTaskCreate(led_task_gpio,
                                          "GPIO_LED_TASK",
                                          128,
                                          NULL,
                                          1,
                                          &gpio_task_handle);
-
+#else
+    BaseType_t gpio_status = xTaskCreate(task_fake,
+                                         "FAKE_TASK",
+                                         128,
+                                         NULL,
+                                         1,
+                                         &gpio_task_handle);
+#endif
     // Set up the event queue
     queue = xQueueCreate(4, sizeof(uint8_t));
 
