@@ -15,10 +15,14 @@ add_executable(${APP_4_NAME}
 target_link_libraries(${APP_4_NAME} LINK_PUBLIC
     pico_stdlib
     FreeRTOS)
-
-# Enable/disable STDIO via USB and UART
-pico_enable_stdio_usb(${APP_4_NAME} 1)
-pico_enable_stdio_uart(${APP_4_NAME} 1)
+if (PICO_CYW43_SUPPORTED)
+    target_link_libraries(${APP_4_NAME} LINK_PUBLIC
+        pico_cyw43_arch_none)
+endif()
 
 # Enable extra build products
 pico_add_extra_outputs(${APP_4_NAME})
+
+# Modify the below lines to enable/disable output over UART/USB
+pico_enable_stdio_uart(${APP_4_NAME} 0)
+pico_enable_stdio_usb(${APP_4_NAME} 1)

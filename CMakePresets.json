@@ -1,0 +1,94 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "pico",
+      "displayName": "Pico (original)",
+      "description": "Configure for original Raspberry Pi Pico (RP2040)",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "PICO_BOARD": "pico",
+        "PICO_SDK_PATH": "/opt/pico-sdk"
+      }
+    },
+    {
+      "name": "pico-debug",
+      "displayName": "Pico (original, Debug)",
+      "description": "Configure for original Raspberry Pi Pico (RP2040) - Debug build",
+      "inherits": "pico",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "pico_w",
+      "displayName": "Pico W",
+      "description": "Configure for Raspberry Pi Pico W",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "PICO_BOARD": "pico_w",
+        "PICO_SDK_PATH": "/opt/pico-sdk"
+      }
+    },
+    {
+      "name": "pico_w-debug",
+      "displayName": "Pico W (Debug)",
+      "description": "Configure for Raspberry Pi Pico W - Debug build",
+      "inherits": "pico_w",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "pico2_w",
+      "displayName": "Pico 2 W",
+      "description": "Configure for Raspberry Pi Pico 2 W",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "PICO_BOARD": "pico2_w",
+        "PICO_SDK_PATH": "/opt/pico-sdk"
+      }
+    },
+    {
+      "name": "pico2_w-debug",
+      "displayName": "Pico 2 W (Debug)",
+      "description": "Configure for Raspberry Pi Pico 2 W - Debug build",
+      "inherits": "pico2_w",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "pico",
+      "configurePreset": "pico"
+    },
+    {
+      "name": "pico-debug",
+      "configurePreset": "pico-debug"
+    },
+    {
+      "name": "pico_w",
+      "configurePreset": "pico_w"
+    },
+    {
+      "name": "pico_w-debug",
+      "configurePreset": "pico_w-debug"
+    },
+    {
+      "name": "pico2_w",
+      "configurePreset": "pico2_w"
+    },
+    {
+      "name": "pico2_w-debug",
+      "configurePreset": "pico2_w-debug"
+    }
+  ]
+}

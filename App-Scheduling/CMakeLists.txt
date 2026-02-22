@@ -19,6 +19,10 @@ target_link_libraries(${APP_2_NAME} LINK_PUBLIC
     pico_stdlib
     hardware_i2c
     FreeRTOS)
+if (PICO_CYW43_SUPPORTED)
+  target_link_libraries(${APP_2_NAME} LINK_PUBLIC
+    pico_cyw43_arch_none)
+endif()
 
 # Enable/disable STDIO via USB and UART
 pico_enable_stdio_usb(${APP_2_NAME} 1)
