@@ -31,9 +31,7 @@ set(COMMON_CODE_DIRECTORY "${CMAKE_SOURCE_DIR}/Common")
 add_compile_definitions($<$<CONFIG:Debug>:DEBUG=1>)
 
 # Set env variable 'PICO_SDK_PATH' to the local Pico SDK
-# Comment out the set() if you have a global copy of the
-# SDK set and $PICO_SDK_PATH defined in your $PATH
-set(ENV{PICO_SDK_PATH} "${CMAKE_SOURCE_DIR}/pico-sdk")
+set(PICO_SDK_PATH "${CMAKE_SOURCE_DIR}/pico-sdk" CACHE PATH "Pico SDK Path")
 
 # Set flags and directory variables
 set(FREERTOS_CFG_DIRECTORY "${CMAKE_SOURCE_DIR}/Config")

@@ -28,6 +28,11 @@
 #include "pico/stdlib.h"            // Includes `hardware_gpio.h`
 #include "pico/binary_info.h"
 #include "hardware/i2c.h"
+// Pico W devices use a GPIO on the WIFI chip for the LED,
+// so when building for Pico W, CYW43_WL_GPIO_LED_PIN will be defined
+#ifdef CYW43_WL_GPIO_LED_PIN
+#   include "pico/cyw43_arch.h"
+#endif
 // App
 #include "../Common/i2c_utils.h"
 #include "../Common/ht16k33.h"

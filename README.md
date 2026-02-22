@@ -83,6 +83,16 @@ mdkir /path/to/RP2040-FreeRTOS/tools
 ```
 **Note** If you have updated from a previous version of the this repo, I recommend deleting your build folder and re-running the build process from Step 6, above.
 
+## Build with external pico-sdk (yyk99)
+
+	cmake -S . -B build/pico2_w -DPICO_BOARD=pico2_w -DPICO_SDK_PATH=/opt/pico-sdk
+	cmake --build build/pico2_w
+	
+or
+
+	cmake -S . -B build/pico -DPICO_SDK_PATH=/opt/pico-sdk
+	cmake --build build/pico
+
 ## Debug vs Release
 
 You can switch between build types when you make the `cmake` call in step 6, above. A debug build is made explicit with:

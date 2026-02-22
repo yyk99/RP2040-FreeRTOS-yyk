@@ -15,6 +15,10 @@ add_executable(${APP_4_NAME}
 target_link_libraries(${APP_4_NAME} LINK_PUBLIC
     pico_stdlib
     FreeRTOS)
+if (PICO_CYW43_SUPPORTED)
+  target_link_libraries(${APP_4_NAME} LINK_PUBLIC
+    pico_cyw43_arch_none)
+endif()
 
 # Enable/disable STDIO via USB and UART
 pico_enable_stdio_usb(${APP_4_NAME} 1)

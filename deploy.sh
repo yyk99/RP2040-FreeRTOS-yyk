@@ -7,7 +7,7 @@
 #
 # Examples:
 #   macOS:       ./deploy.sh /dev/cu.usbmodem1.1 /build/App-IRQs/IRQS_DEMO.uf2
-#   Linux RPiOS: ./deploy.sh /dev/ttyACMO        /build/App-IRQs/IRQS_DEMO.uf2
+#   Linux RPiOS: ./deploy.sh /dev/ttyACMO        ./build/App-IRQs/IRQS_DEMO.uf2
 
 show_error_and_exit() {
     echo "[ERROR] $1"
