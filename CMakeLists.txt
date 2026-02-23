@@ -59,6 +59,7 @@ add_library(FreeRTOS STATIC
     ${FREERTOS_SRC_DIRECTORY}/timers.c
     ${FREERTOS_SRC_DIRECTORY}/portable/MemMang/heap_3.c
     ${FREERTOS_SRC_DIRECTORY}/portable/GCC/ARM_CM0/port.c
+    ${FREERTOS_SRC_DIRECTORY}/portable/GCC/ARM_CM0/portasm.c
 )
 
 # Build FreeRTOS

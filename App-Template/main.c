@@ -175,12 +175,14 @@ int main() {
 
     // Start the FreeRTOS scheduler
     // FROM 1.0.1: Only proceed with valid tasks
-    if (pico_status == pdPASS || gpio_status == pdPASS) {
+    if (pico_status == pdPASS && gpio_status == pdPASS) {
         vTaskStartScheduler();
     }
 
     // We should never get here, but just in case...
     while(true) {
         // NOP
+        log_debug("We should NOT be here...");
+        sleep_ms(1000);
     }
 }

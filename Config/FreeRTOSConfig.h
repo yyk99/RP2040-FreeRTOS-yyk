@@ -27,10 +27,10 @@
 #define FREERTOS_CONFIG_H
 
 
-/* Use Pico SDK ISR handlers */
-#define vPortSVCHandler         isr_svcall
-#define xPortPendSVHandler      isr_pendsv
-#define xPortSysTickHandler     isr_systick
+/* Use Pico SDK ISR handlers - FreeRTOS V11 renamed these handlers */
+#define SVC_Handler             isr_svcall
+#define PendSV_Handler          isr_pendsv
+#define SysTick_Handler         isr_systick
 
 /* Scheduler Related */
 #define configUSE_PREEMPTION                    1                   // Allow tasks to be pre-empted
@@ -81,10 +81,6 @@
 #define configUSE_TRACE_FACILITY                0
 #define configUSE_STATS_FORMATTING_FUNCTIONS    0
 
-/* Co-routine related definitions. */
-#define configUSE_CO_ROUTINES                   0
-#define configMAX_CO_ROUTINE_PRIORITIES         1
-
 /* Software timer related definitions. */
 #define configUSE_TIMERS                        1
 #define configTIMER_TASK_PRIORITY               (configMAX_PRIORITIES - 1)
@@ -94,6 +90,9 @@
 /* RP2040 specific */
 #define configSUPPORT_PICO_SYNC_INTEROP         1
 #define configSUPPORT_PICO_TIME_INTEROP         1
+
+/* Upgrading to version ... */
+#define configENABLE_MPU                        0
 
 /* Define to trap errors during development. */
 #include <assert.h>

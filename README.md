@@ -87,11 +87,16 @@ mdkir /path/to/RP2040-FreeRTOS/tools
 
 	cmake -S . -B build/pico2_w -DPICO_BOARD=pico2_w -DPICO_SDK_PATH=/opt/pico-sdk
 	cmake --build build/pico2_w
-	
+
 or
 
 	cmake -S . -B build/pico -DPICO_SDK_PATH=/opt/pico-sdk
 	cmake --build build/pico
+
+or using presets
+
+	cmake --preset pico2_w-debug
+	cmake --build --preset pico2_w-debug
 
 ## Debug vs Release
 
